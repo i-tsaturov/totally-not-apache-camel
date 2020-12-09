@@ -1,0 +1,56 @@
+[[UuidGenerator-UuidGenerator]]
+= UuidGenerator
+
+Starting with *Camel 2.5*, Camel supports 3rd party UUID generator(s).
+This is useful, if e.g. your messaging provider does not support UUID's
+with a length of 36 characters (like Websphere MQ). Another useful
+scenario is to use a simple counter for testing purpose. With this it is
+easier to correlate the exchanges in the log/debugger.
+
+Camel uses UUIDs in the exchange and message ids, and other unique ids
+it uses.
+
+You only have to implement `org.apache.camel.spi.UuidGenerator` and tell
+Camel, that it should use your custom implementation:
+
+[[UuidGenerator-ConfiguringfromJavaDSL]]
+== Configuring from Java DSL
+
+[source,java]
+----
+getContext().setUuidGenerator(new MyCustomUuidGenerator());
+----
+
+Warning: You should not change the UUID generator at runtime (it should only be
+set once)!
+
+[[UuidGenerator-ConfiguringfromSpringDSL]]
+== Configuring from XML DSL
+
+Camel will configure this UUID generator by doing a lookup in the Spring
+bean registry to find the bean of the type
+`org.apache.camel.spi.UuidGenerator`.
+
+[source,xml]
+----
+<bean id="simpleUuid" class="org.apache.camel.support.SimpleUuidGenerator" />
+
+<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+  <route>
+    <from uri="direct:start" />
+    <to uri="mock:result" />
+  </route>
+</camelContext>
+----
+
+[[UuidGenerator-Providedimplementations]]
+== Provided implementations
+
+Camel comes with two implementations of
+`org.apache.camel.spi.UuidGenerator`:
+
+* `org.apache.camel.support.SimpleUuidGenerator` - This implementation use
+internally a `java.util.concurrent.atomic.AtomicLong` and increase the
+ID for every call by one. Starting with 1 as the first id.
+* `org.apache.camel.impl.engine.DefaultUuidGenerator` - This implementation
+use a fast unique UUID generation that is cluster safe (similar to uuid generator in ActiveMQ)

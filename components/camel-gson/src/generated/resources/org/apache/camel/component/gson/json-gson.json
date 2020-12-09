@@ -1,0 +1,22 @@
+{
+  "dataformat": {
+    "kind": "dataformat",
+    "name": "json-gson",
+    "modelName": "json",
+    "title": "JSon GSon",
+    "description": "JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.",
+    "deprecated": false,
+    "deprecationNote": "dataformat,transformation,json",
+    "firstVersion": "2.10.0",
+    "label": "dataformat,transformation,json",
+    "javaType": "org.apache.camel.component.gson.GsonDataFormat",
+    "modelJavaType": "org.apache.camel.model.dataformat.JsonDataFormat",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-gson",
+    "version": "3.2.0-SNAPSHOT"
+  },
+  "properties": {
+    "prettyPrint": { "kind": "attribute", "displayName": "Pretty Print", "required": false, "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": false, "secret": false, "defaultValue": false, "description": "To enable pretty printing output nicely formatted. Is by default false." },
+    "contentTypeHeader": { "kind": "attribute", "displayName": "Content Type Header", "required": false, "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": false, "secret": false, "defaultValue": false, "description": "Whether the data format should set the Content-Type header with the type from the data format if the data format is capable of doing so. For example application\/xml for data formats marshalling to XML, or application\/json for data formats marshalling to JSon etc." }
+  }
+}
